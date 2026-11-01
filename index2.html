@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resonance — Local Music Player</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <div class="brand-mark" data-icon="wave"></div>
+                <div>
+                    <h1>Resonance</h1>
+                    <small>Local Lossless Player</small>
+                </div>
+            </div>
+
+            <nav class="nav" id="nav">
+                <button class="nav-item" data-action="nav" data-view="home" data-nav="home"><span data-icon="home"></span>Home</button>
+                <button class="nav-item" data-action="nav" data-view="discover" data-nav="discover"><span data-icon="compass"></span>Discover</button>
+                <button class="nav-item" data-action="nav" data-view="songs" data-nav="library"><span data-icon="library"></span>Your Library</button>
+            </nav>
+
+            <div class="chips" id="libChips">
+                <button class="chip" data-action="nav" data-view="songs" data-chip="songs">Songs</button>
+                <button class="chip" data-action="nav" data-view="playlists" data-chip="playlists">Playlists</button>
+                <button class="chip" data-action="nav" data-view="artists" data-chip="artists">Artists</button>
+                <button class="chip" data-action="nav" data-view="albums" data-chip="albums">Albums</button>
+            </div>
+
+            <div class="side-head">
+                <span>PLAYLISTS</span>
+                <button class="icon-btn" data-action="new-playlist" title="New playlist" data-icon="plus"></button>
+            </div>
+            <div class="side-list" id="sideList"></div>
+
+            <div class="folder-card" id="folderCard"></div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main">
+            <header class="topbar">
+                <div class="arrows">
+                    <button class="round-btn" id="backBtn" data-action="back" data-icon="chevL" title="Back"></button>
+                    <button class="round-btn" id="fwdBtn" data-action="fwd" data-icon="chevR" title="Forward"></button>
+                </div>
+                <label class="search">
+                    <span data-icon="search"></span>
+                    <input id="searchInput" type="text" placeholder="What do you want to play?" autocomplete="off" spellcheck="false">
+                    <kbd id="kbdHint">⌘K</kbd>
+                </label>
+                <button class="glass-btn" id="folderBtn" data-action="choose-folder"></button>
+            </header>
+            <section class="stage" id="stage"></section>
+        </main>
+
+        <!-- Master playback console -->
+        <footer class="dock" id="dock">
+            <div class="dock-track" id="dockTrack"></div>
+
+            <div class="dock-center">
+                <div class="transport">
+                    <button class="ghost" id="shuffleBtn" data-action="shuffle" data-icon="shuffle" title="Shuffle (S)"></button>
+                    <button class="ghost" data-action="prev" data-icon="prev" title="Previous"></button>
+                    <button class="play-main" id="playBtn" data-action="toggle-play" title="Play / Pause (Space)"></button>
+                    <button class="ghost" data-action="next" data-icon="next" title="Next"></button>
+                    <button class="ghost" id="repeatBtn" data-action="repeat" title="Repeat (R)"></button>
+                </div>
+                <div class="scrub">
+                    <span class="num" id="timeNow">0:00</span>
+                    <div class="wave" id="wave">
+                        <canvas id="waveCanvas"></canvas>
+                        <div class="hover-line" id="hoverLine"></div>
+                        <div class="hover-time num" id="hoverTime">0:00</div>
+                    </div>
+                    <span class="num" id="timeTotal">0:00</span>
+                </div>
+            </div>
+
+            <div class="dock-right">
+                <button class="ghost" id="queueBtn" data-action="toggle-queue" data-icon="queue" title="Queue"></button>
+                <button class="ghost" id="muteBtn" data-action="mute" title="Mute (M)"></button>
+                <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+            </div>
+        </footer>
+    </div>
+
+    <aside class="queue-drawer" id="queueDrawer" hidden></aside>
+    <div class="toasts" id="toasts"></div>
+    <audio id="audio" preload="auto"></audio>
+    <input type="file" id="folderInput" webkitdirectory directory multiple hidden>
+
+    <!-- Optional: reads ID3/FLAC tags + cover art. The player falls back to file names if offline. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+    <script src="script2.js"></script>
+</body>
+</html>
